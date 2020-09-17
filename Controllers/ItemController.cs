@@ -26,11 +26,12 @@ namespace Todo.Controllers
             {
                 var appUserId = User.Claims.First(c => c.Type == "Sub").Value;
                 Console.WriteLine(appUserId);
-                return Ok(await _cosmosDbService.GetItemsAsync($"SELECT * FROM Items i WHERE i.userId = \"{appUserId}\""));
+                return Ok(await _cosmosDbService.GetItemsAsync($"SELECT * FROM c WHERE c.userId = \"{appUserId}\""));
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+                var appUserId = User.Claims.First(c => c.Type == "Sub").Value;
+                return StatusCode(StatusCodes.Status500InternalServerError, appUserId);
             }
 
         }
