@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\code\\sandbox\\c-sharp\\cosmosPractice\\cosmosPractice.csproj": {}
+    "C:\\code\\sandbox\\c-sharp\\cosmosPractice\\cosmosPractice.csproj": {}
   },
   "projects": {
-    "c:\\code\\sandbox\\c-sharp\\cosmosPractice\\cosmosPractice.csproj": {
+    "C:\\code\\sandbox\\c-sharp\\cosmosPractice\\cosmosPractice.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\code\\sandbox\\c-sharp\\cosmosPractice\\cosmosPractice.csproj",
+        "projectUniqueName": "C:\\code\\sandbox\\c-sharp\\cosmosPractice\\cosmosPractice.csproj",
         "projectName": "cosmosPractice",
-        "projectPath": "c:\\code\\sandbox\\c-sharp\\cosmosPractice\\cosmosPractice.csproj",
+        "projectPath": "C:\\code\\sandbox\\c-sharp\\cosmosPractice\\cosmosPractice.csproj",
         "packagesPath": "C:\\Users\\Matte\\.nuget\\packages\\",
-        "outputPath": "c:\\code\\sandbox\\c-sharp\\cosmosPractice\\obj\\",
+        "outputPath": "C:\\code\\sandbox\\c-sharp\\cosmosPractice\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
