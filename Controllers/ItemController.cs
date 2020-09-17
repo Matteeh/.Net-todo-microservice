@@ -26,7 +26,7 @@ namespace Todo.Controllers
             {
                 var appUserId = User.Claims.First(c => c.Type == "sub").Value;
                 Console.WriteLine(appUserId);
-                return Ok(await _cosmosDbService.GetItemsAsync($"SELECT * FROM Items i WHERE i.userId = {appUserId}"));
+                return Ok(await _cosmosDbService.GetItemsAsync($"SELECT * FROM Items i WHERE i.userId = \"{appUserId}\""));
             }
             catch (Exception e)
             {
