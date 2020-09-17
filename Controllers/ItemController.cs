@@ -30,7 +30,7 @@ namespace Todo.Controllers
             }
             catch (Exception e)
             {
-                StatusCode(500, e);
+                return StatusCode(500, e);
             }
 
         }
