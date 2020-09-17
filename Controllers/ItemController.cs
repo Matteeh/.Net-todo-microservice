@@ -25,7 +25,7 @@ namespace Todo.Controllers
         {
             try
             {
-                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;//Claims.First(c => c.Type == "sub").Value;
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 return Ok(await _cosmosDbService.GetItemsAsync($"SELECT * FROM c WHERE c.userId = \"{userId}\""));
             }
             catch (Exception e)
