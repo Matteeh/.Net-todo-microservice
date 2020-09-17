@@ -6,6 +6,7 @@ namespace Todo.Controllers
     using Microsoft.AspNetCore.Mvc;
     using Todo.Models;
     using Microsoft.AspNetCore.Authorization;
+    using System.Linq;
 
     [ApiController]
     [Route("api/items")]
@@ -21,13 +22,14 @@ namespace Todo.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
+            var appUserId = User.Claims.First(c => c.Type == "sub").Value;
             Console.WriteLine("GETTING ALL ITEMS");
-            return Ok(await _cosmosDbService.GetItemsAsync("SELECT * FROM c"));
+            return Ok(await _cosmosDbService.GetItemsAsync($"SELECT * FROM Items i WHERE i.userId = {appUserId}"));
         }
 
 
         [HttpPost]
-        public async Task<ActionResult> CreateAsync([Bind("Id,Name,Description,Completed")] Item item)
+        public async Task<ActionResult> CreateAsync([Bind("Id,UserId,Name,Description,Completed")] Item item)
         {
             if (ModelState.IsValid)
             {
@@ -41,7 +43,7 @@ namespace Todo.Controllers
 
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> EditAsync([Bind("Id,Name,Description,Completed")] Item item)
+        public async Task<ActionResult> EditAsync([Bind("Id,UserId,Name,Description,Completed")] Item item)
         {
             if (ModelState.IsValid)
             {

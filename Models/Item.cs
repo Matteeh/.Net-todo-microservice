@@ -7,6 +7,8 @@ namespace Todo.Models
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
 
+        public string UserId { get; set; }
+
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
