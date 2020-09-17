@@ -2,11 +2,14 @@ namespace Todo.Controllers
 {
     using System;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Todo.Models;
+    using Microsoft.AspNetCore.Authorization;
 
     [ApiController]
     [Route("api/items")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class ItemController : Controller
     {
         private readonly ICosmosDbService _cosmosDbService;
@@ -38,20 +41,23 @@ namespace Todo.Controllers
 
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> EditAsync(string id)
+        public async Task<ActionResult> EditAsync([Bind("Id,Name,Description,Completed")] Item item)
         {
-            if (id == null)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
+                try
+                {
 
-            Item item = await _cosmosDbService.GetItemAsync(id);
-            if (item == null)
-            {
-                return NotFound();
-            }
+                    await _cosmosDbService.UpdateItemAsync(item.Id, item);
+                    return Ok(item);
 
-            return Ok(item);
+                }
+                catch (Exception e)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+                }
+            }
+            return BadRequest("Invalid item model");
         }
 
         [HttpDelete("{id}")]
