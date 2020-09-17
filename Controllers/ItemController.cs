@@ -24,7 +24,7 @@ namespace Todo.Controllers
         {
             try
             {
-                var appUserId = User.Claims.First(c => c.Type == "sub").Value;
+                var appUserId = User.Claims.First(c => c.Type == "Sub").Value;
                 Console.WriteLine(appUserId);
                 return Ok(await _cosmosDbService.GetItemsAsync($"SELECT * FROM Items i WHERE i.userId = \"{appUserId}\""));
             }
