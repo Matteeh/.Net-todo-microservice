@@ -22,9 +22,17 @@ namespace Todo.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
-            var appUserId = User.Claims.First(c => c.Type == "sub").Value;
-            Console.WriteLine(appUserId);
-            return Ok(await _cosmosDbService.GetItemsAsync($"SELECT * FROM Items i WHERE i.userId = {appUserId}"));
+            try
+            {
+                var appUserId = User.Claims.First(c => c.Type == "sub").Value;
+                Console.WriteLine(appUserId);
+                return Ok(await _cosmosDbService.GetItemsAsync($"SELECT * FROM Items i WHERE i.userId = {appUserId}"));
+            }
+            catch (Exception e)
+            {
+                StatusCode(500, e);
+            }
+
         }
 
 
