@@ -7,6 +7,7 @@ namespace Todo.Controllers
     using Todo.Models;
     using Microsoft.AspNetCore.Authorization;
     using System.Linq;
+    using System.Security.Claims;
 
     [ApiController]
     [Route("api/items")]
@@ -24,14 +25,12 @@ namespace Todo.Controllers
         {
             try
             {
-                var appUserId = User.Claims.First(c => c.Type == "Sub").Value;
-                Console.WriteLine(appUserId);
-                return Ok(await _cosmosDbService.GetItemsAsync($"SELECT * FROM c WHERE c.userId = \"{appUserId}\""));
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;//Claims.First(c => c.Type == "sub").Value;
+                return Ok(await _cosmosDbService.GetItemsAsync($"SELECT * FROM c WHERE c.userId = \"{userId}\""));
             }
             catch (Exception e)
             {
-                var appUserId = User.Claims.First(c => c.Type == "Sub").Value;
-                return StatusCode(StatusCodes.Status500InternalServerError, appUserId);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
 
         }
